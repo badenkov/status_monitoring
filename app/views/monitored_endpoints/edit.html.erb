@@ -1,0 +1,16 @@
+<% content_for :title, "Editing monitored endpoint" %>
+
+<div class="md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">Editing monitored endpoint</h1>
+  
+  <div class="breadcrumbs text-sm">
+    <ul>
+      <li><%= link_to "Home", root_path %></li>
+      <li><%= link_to "Monitored endpoints", monitored_endpoints_path %></li>
+      <li><%= link_to @monitored_endpoint.title, monitored_endpoint_path(@monitored_endpoint) %></li>
+      <li>Edit</li>
+    </ul>
+  </div>
+
+  <%= render "form", monitored_endpoint: @monitored_endpoint %>
+</div>

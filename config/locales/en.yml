@@ -29,3 +29,15 @@
 
 en:
   hello: "Hello world"
+  helpers:
+    label:
+      monitored_endpoint:
+        title: "Title"
+        url: "URL"
+        threshold: "Threshold, ms"
+        interval: "Interval, sec"
+    submit:
+      monitored_endpoint:
+        create: "Create"
+        update: "Save"
+
