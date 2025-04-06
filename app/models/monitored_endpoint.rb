@@ -1,6 +1,8 @@
 class MonitoredEndpoint < ApplicationRecord
   URL_REGEXP = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix
 
+  has_many :checks, dependent: :destroy
+
   enum :status, { draft: 0, ready: 1, in_progress: 2 }, default: :draft
 
   validates :title, presence: true
@@ -8,9 +10,37 @@ class MonitoredEndpoint < ApplicationRecord
   validates :threshold, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :interval, presence: true, numericality: { only_integer: true, greater_or_equal_than: 10 }
 
+  scope :ready_for_launch, -> { ready.where("next_launch_at <= ?", Time.current) }
+
   broadcasts_refreshes
 
   before_save :calc_launch_time
+  after_commit :launch_check_async, if: -> { in_progress? && status_previously_changed? }
+
+  def launch_check_async
+    LaunchCheckJob.perform_later(self)
+  end
+
+  HTTP_TIMEOUT = 10
+
+  def launch_check!
+    start_time = Time.current
+    begin
+      response = HTTP.timeout(HTTP_TIMEOUT).get(url)
+      response_code = response.code
+    rescue HTTP::TimeoutError => e
+      response_code = 504
+    end
+    end_time = Time.current
+
+    latency = (end_time - start_time).in_milliseconds
+
+    transaction do
+      self.lock!
+      self.checks.create!(latency: latency, response_code: response_code)
+      self.ready!
+    end
+  end
 
   private
 

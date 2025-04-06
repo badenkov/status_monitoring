@@ -1,6 +1,8 @@
 { pkgs, lib, config, inputs, ... }:
 
 {
+  env.SOLID_QUEUE_IN_PUMA = true;
+
   packages = [
     pkgs.libffi
 

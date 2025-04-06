@@ -27,4 +27,9 @@
 
   <%= render @monitored_endpoint %>
   <p class="text-gray-600">status: <%= @monitored_endpoint.status %></p>
+
+  <div>
+    <%= @monitored_endpoint.checks.map { |c| [c.id, c.response_code, c.latency] } %>
+  </div>
 </div>
+

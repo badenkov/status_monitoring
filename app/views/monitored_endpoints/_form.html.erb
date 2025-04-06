@@ -18,7 +18,7 @@
 
   <div class="fieldset">
     <%= form.label :url, class: "fieldset-legend" %>
-    <%= form.text_field :url, class: ["input", {"input-error": monitored_endpoint.errors[:url].any?}] %>
+    <%= form.url_field :url, class: ["input", {"input-error": monitored_endpoint.errors[:url].any?}] %>
   </div>
 
   <div class="fieldset">
@@ -34,10 +34,12 @@
   <div class="py-2">
     <%= form.submit class: "btn btn-primary" %>
 
-    <% if monitored_endpoint.ready? %>
-      <%= form.submit 'Draft', name: 'monitored_endpoint[status]', value: 'draft', class: "btn" %>
-    <% elsif monitored_endpoint.draft? %>
+    <% if monitored_endpoint.draft? %>
       <%= form.submit 'Ready', name: 'monitored_endpoint[status]', value: 'ready', class: "btn" %>
+    <% end %>
+
+    <% unless monitored_endpoint.draft? %>
+      <%= form.submit 'Draft', name: 'monitored_endpoint[status]', value: 'draft', class: "btn" %>
     <% end %>
   </div>
 <% end %>

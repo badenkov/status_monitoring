@@ -1,0 +1,25 @@
+first_site_operational1:
+  monitored_endpoint: first_site
+  response_code: 200
+  latency: 100
+  created_at: <%= Date.today %>
+
+first_site_operational2:
+  monitored_endpoint: first_site
+  response_code: 200
+  latency: 100
+  created_at: <%= Date.today %>
+
+first_site_incedent:
+  monitored_endpoint: first_site
+  response_code: 500
+  latency: 100
+  created_at: <%= 1.day.ago %>
+
+first_site_degraded:
+  monitored_endpoint: first_site
+  response_code: 200
+  latency: 150
+  created_at: <%= 2.day.ago %>
+
+
