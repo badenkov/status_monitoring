@@ -129,6 +129,8 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    groupdate (6.5.1)
+      activesupport (>= 7)
     hashdiff (1.1.2)
     hotwire-spark (0.1.13)
       listen
@@ -425,6 +427,7 @@ DEPENDENCIES
   brakeman
   capybara
   debug
+  groupdate (~> 6.5)
   hotwire-spark
   http
   importmap-rails
