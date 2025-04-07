@@ -4,7 +4,6 @@
   env.SOLID_QUEUE_IN_PUMA = true;
 
   packages = [
-    pkgs.chromium
     pkgs.libffi
 
     pkgs.inotify-tools
