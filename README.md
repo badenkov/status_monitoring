@@ -1,24 +1,33 @@
-# README
+# Тестовое задание
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Для настройки рабочего окружение использоуется инструмент [devenv](https://devenv.sh/getting-started/)
+и [direnv](https://direnv.net/).
 
-Things you may want to cover:
+* `devenv` - Помогает в декларативной форме описывать рабочее окружение - устанавливать все необходимые зависимости, сервисы и т.п.
+* `direnv` - Позволяет автоматически загружать рабочее окружение при переходе в директорию с проектом. Без него бы приходилось вызывать команду `devenv shell` в ручную.
 
-* Ruby version
+То есть для установки всех необходимых зависимостей необходимо клонировать репозиторий
 
-* System dependencies
+```
+git clone git@github.com:badenkov/status_monitoring.git
+cd status_monitoring
+direnv allow
+```
 
-* Configuration
+Затем необходимо установить зависимости
 
-* Database creation
+```
+bundle install
+bin/rails db:setup
+```
 
-* Database initialization
+и можно запустить проект.
 
-* How to run the test suite
+```
+bin/dev
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+и открыть проект в браузере `http://localhost:3000`
 
-* Deployment instructions
 
-* ...
+

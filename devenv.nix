@@ -4,6 +4,7 @@
   env.SOLID_QUEUE_IN_PUMA = true;
 
   packages = [
+    pkgs.chromium
     pkgs.libffi
 
     pkgs.inotify-tools
@@ -23,12 +24,6 @@
   languages.ruby.enable = true;
   languages.ruby.versionFile = ./.ruby-version;
   languages.ruby.bundler.enable = true;
-
-  processes = {
-  } // lib.optionalAttrs (!config.devenv.isTesting) {
-    web.exec = "bin/rails server";
-    css.exec = "bin/rails tailwindcss:watch";
-  };
 
   enterTest = ''
     bundle install
