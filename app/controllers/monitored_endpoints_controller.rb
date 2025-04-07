@@ -7,7 +7,7 @@ class MonitoredEndpointsController < ApplicationController
 
   def show
     @average_response_time = @monitored_endpoint.cached_average_response_time
-    @responses_counts = @monitored_endpoint.cached_total_checks_counts
+    @total_checks_counts = @monitored_endpoint.cached_total_checks_counts
     @incedent_counts = @monitored_endpoint.cached_incedent_counts
     @degraded_counts = @monitored_endpoint.cached_degraded_counts
   end

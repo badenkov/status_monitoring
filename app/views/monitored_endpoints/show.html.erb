@@ -33,14 +33,14 @@
       <tr>
         <th>Date</th>
         <th>Average latency</th>
-        <th>Response count</th>
+        <th>Total check count</th>
         <th>Incedent response count</th>
         <th>Degraded response count</th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-gray-200">
+    <tbody class="divide-y divide-gray-200 text-center">
       <% @average_response_time.each do |date, value| %>
-        <% responses_count = @responses_counts.dig(date) || 0 %>
+        <% total_checks_count = @total_checks_counts.dig(date) || 0 %>
         <% incedent_count = @incedent_counts.dig(date) || 0 %>
         <% degraded_count = @degraded_counts.dig(date) || 0 %>
         <tr
@@ -51,8 +51,8 @@
           ) %>"
         >
           <td><%= l date, format: :long %></td>
-          <td><%= value %></td>
-          <td><%= responses_count %></td>
+          <td><%= value&.round %></td>
+          <td><%= total_checks_count %></td>
           <td><%= incedent_count %></td>
           <td><%= degraded_count %></td>
         </tr>
