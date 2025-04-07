@@ -2,3 +2,7 @@
 #  launch_scheduled_checks:
 #    class: LaunchScheduledChecksJob
 #    schedule: every second
+production:
+  launch_scheduled_checks:
+    class: LaunchScheduledChecksJob
+    schedule: every minute

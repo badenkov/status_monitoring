@@ -2,7 +2,7 @@ first_site:
   title: First site
   url: https://first-site.test
   threshold: 100
-  interval: 10 # seconds
+  interval: 60 # seconds
   next_launch_at: null
   status: 0 # draft
 

@@ -1,5 +1,7 @@
 class MonitoredEndpoint < ApplicationRecord
   URL_REGEXP = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix
+  MINUTE = 60
+  HOUR = MINUTE * 60
 
   has_many :checks, dependent: :destroy
 
@@ -8,7 +10,7 @@ class MonitoredEndpoint < ApplicationRecord
   validates :title, presence: true
   validates :url, presence: true, format: { with: URL_REGEXP, message: "should be valid url" }
   validates :threshold, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :interval, presence: true, numericality: { only_integer: true, greater_or_equal_than: 10 }
+  validates :interval, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: MINUTE, less_than_or_equal_to: HOUR }
 
   scope :ready_for_launch, -> { ready.where("next_launch_at <= ?", Time.current) }
 
