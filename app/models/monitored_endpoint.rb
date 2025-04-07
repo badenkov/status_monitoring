@@ -4,6 +4,7 @@ class MonitoredEndpoint < ApplicationRecord
   URL_REGEXP = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix
   MINUTE = 60
   HOUR = MINUTE * 60
+  HTTP_TIMEOUT = 10
 
   has_many :checks, dependent: :destroy
 
@@ -24,8 +25,6 @@ class MonitoredEndpoint < ApplicationRecord
   def launch_check_async
     LaunchCheckJob.perform_later(self)
   end
-
-  HTTP_TIMEOUT = 10
 
   def launch_check!
     start_time = Time.current
