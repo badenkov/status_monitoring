@@ -1,6 +1,4 @@
-{ pkgs, lib, config, inputs, ... }:
-
-{
+{pkgs, ...}: {
   env.SOLID_QUEUE_IN_PUMA = true;
 
   packages = [
@@ -23,6 +21,11 @@
   languages.ruby.enable = true;
   languages.ruby.versionFile = ./.ruby-version;
   languages.ruby.bundler.enable = true;
+
+  enterShell = ''
+    export LD_LIBRARY_PATH="$DEVENV_PROFILE/lib:$LD_LIBRARY_PATH"
+    export PATH="$(pwd)/bin:$PATH"
+  '';
 
   enterTest = ''
     bundle install
