@@ -1,5 +1,5 @@
 class MonitoredEndpoint < ApplicationRecord
-  include Report
+  include Report, Scheduable
 
   HTTP_TIMEOUT = 10
 
@@ -12,11 +12,8 @@ class MonitoredEndpoint < ApplicationRecord
   validates :threshold, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :interval, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1.minute, less_than_or_equal_to: 1.hour }
 
-  scope :ready_for_launch, -> { ready.where("next_launch_at <= ?", Time.current) }
-
   broadcasts_refreshes
 
-  before_save :calc_launch_time
   after_commit :launch_check_async, if: -> { in_progress? && status_previously_changed? }
 
   def launch_check_async
@@ -40,12 +37,5 @@ class MonitoredEndpoint < ApplicationRecord
       self.checks.create!(latency: latency, response_code: response_code)
       self.ready!
     end
-  end
-
-  private
-
-  def calc_launch_time
-    self.next_launch_at = nil if draft? || in_progress?
-    self.next_launch_at = Time.now + interval.seconds if ready?
   end
 end
