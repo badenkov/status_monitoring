@@ -1,4 +1,4 @@
-module MonitoredEndpoint::Report
+module MonitoredEndpoint::Reportable
   extend ActiveSupport::Concern
 
   included do

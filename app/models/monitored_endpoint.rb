@@ -1,5 +1,5 @@
 class MonitoredEndpoint < ApplicationRecord
-  include Report, Scheduable
+  include Reportable, Scheduable
 
   HTTP_TIMEOUT = 10
 
