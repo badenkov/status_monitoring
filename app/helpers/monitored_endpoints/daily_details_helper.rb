@@ -1,0 +1,2 @@
+module MonitoredEndpoints::DailyDetailsHelper
+end

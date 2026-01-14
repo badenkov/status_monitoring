@@ -2,6 +2,7 @@
 
 <% content_for :title, "Showing monitored endpoint" %>
 
+
 <div class="w-full">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
@@ -26,39 +27,5 @@
   </div>
 
   <%= render @monitored_endpoint %>
-  <p class="text-gray-600">status: <%= @monitored_endpoint.status %></p>
-
-  <table class="min-w-full divide-y divide-gray-200">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Average latency</th>
-        <th>Total check count</th>
-        <th>Incedent response count</th>
-        <th>Degraded response count</th>
-      </tr>
-    </thead>
-    <tbody class="divide-y divide-gray-200 text-center">
-      <% @average_response_time.each do |date, value| %>
-        <% total_checks_count = @total_checks_counts.dig(date) || 0 %>
-        <% incedent_count = @incedent_counts.dig(date) || 0 %>
-        <% degraded_count = @degraded_counts.dig(date) || 0 %>
-        <tr
-          class="<%= class_names(
-            "bg-green-100 text-green-800": (incedent_count == 0 && degraded_count == 0),
-            "bg-yellow-100 text-yellow-800": (incedent_count == 0 && degraded_count > 0),
-            "bg-red-100 text-red-800": (incedent_count > 0),
-          ) %>"
-        >
-          <td><%= l date, format: :long %></td>
-          <td><%= value&.round %></td>
-          <td><%= total_checks_count %></td>
-          <td><%= incedent_count %></td>
-          <td><%= degraded_count %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
 </div>
 

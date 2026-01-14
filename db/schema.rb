@@ -10,25 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_06_212736) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_13_142917) do
   create_table "monitored_endpoint_checks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "latency"
     t.integer "monitored_endpoint_id", null: false
     t.integer "response_code"
-    t.integer "latency"
-    t.datetime "created_at", null: false
+    t.integer "status", default: 0
     t.datetime "updated_at", null: false
     t.index ["monitored_endpoint_id"], name: "index_monitored_endpoint_checks_on_monitored_endpoint_id"
   end
 
   create_table "monitored_endpoints", force: :cascade do |t|
-    t.string "title"
-    t.string "url"
-    t.integer "threshold"
+    t.datetime "created_at", null: false
     t.integer "interval"
     t.datetime "next_launch_at"
     t.integer "status", default: 0
-    t.datetime "created_at", null: false
+    t.integer "threshold"
+    t.string "title"
     t.datetime "updated_at", null: false
+    t.string "url"
     t.index ["status"], name: "index_monitored_endpoints_on_status"
   end
 

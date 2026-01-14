@@ -3,3 +3,29 @@
     <%= monitored_endpoint.url %> (Threshold: <%= monitored_endpoint.threshold %>ms, Interval: <%= monitored_endpoint.interval %> sec)
   </div>
 </div>
+
+<div class="flex h-[50px] w-full items-end">
+  <% monitored_endpoint.statuses_by_day(from: 91.days.ago, to: Date.current).each do |date, status| %>
+    <div class="group relative mx-px flex h-full w-full cursor-pointer flex-col outline-none first:ml-0 last:mr-0 hover:opacity-80 focus-visible:opacity-80 focus-visible:ring-[2px] focus-visible:ring-ring/50 data-[aria-pressed=true]:opacity-80 overflow-hidden">
+      <div contents data-controller="popover" data-action="mouseenter->popover#debouncedShow mouseleave->popover#debouncedHide" style="display: contents;">
+          <% if status == "operational" %>
+            <a data-popover-target="trigger" href="" class="w-full transition-all" style="height: 100%; background-color: oklch(72% 0.19 150);"></a>
+          <% elsif status == "degraded" %>
+            <a data-popover-target="trigger" class="w-full transition-all" style="height: 100%; background-color: oklch(77% 0.16 70);"></a>
+          <% elsif status == "incident" %>
+            <a data-popover-target="trigger" class="w-full transition-all" style="height: 100%; background-color: oklch(57.7% 0.245 27.325);"><a>
+          <% else %>
+            <div class="w-full transition-all" style="height: 100%;"></div>
+          <% end %>
+
+        <div popover="hint" class="popover" data-popover-target="content" role="dialog">
+
+          <%= turbo_frame_tag "details-#{date}", src: monitored_endpoint_daily_detail_path(monitored_endpoint, date), loading: :lazy %>
+
+        </div>
+
+      </div>
+    </div>
+  <% end %>
+
+</div>

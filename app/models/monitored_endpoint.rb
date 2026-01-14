@@ -13,29 +13,35 @@ class MonitoredEndpoint < ApplicationRecord
   validates :interval, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1.minute, less_than_or_equal_to: 1.hour }
 
   broadcasts_refreshes
-
-  after_commit :launch_check_async, if: -> { in_progress? && status_previously_changed? }
-
-  def launch_check_async
-    LaunchCheckJob.perform_later(self)
+  
+  def statuses_by_day(from:, to:)
+    checks.group_by_day(:created_at, range: from..to, series: true)
+      .maximum(:status)
+      .transform_values { |v| v.nil? ? nil : MonitoredEndpoint::Check.statuses.key(v) }
   end
 
-  def launch_check!
-    start_time = Time.current
-    begin
-      response = HTTP.timeout(HTTP_TIMEOUT).get(url)
-      response_code = response.code
-    rescue HTTP::TimeoutError => e
-      response_code = 504
-    end
-    end_time = Time.current
-
-    latency = (end_time - start_time).in_milliseconds
-
-    transaction do
-      self.lock!
-      self.checks.create!(latency: latency, response_code: response_code)
-      self.ready!
-    end
-  end
+  # after_commit :launch_check_async, if: -> { in_progress? && status_previously_changed? }
+  #
+  # def launch_check_async
+  #   LaunchCheckJob.perform_later(self)
+  # end
+  #
+  # def launch_check!
+  #   start_time = Time.current
+  #   begin
+  #     response = HTTP.timeout(HTTP_TIMEOUT).get(url)
+  #     response_code = response.code
+  #   rescue HTTP::TimeoutError => e
+  #     response_code = 504
+  #   end
+  #   end_time = Time.current
+  #
+  #   latency = (end_time - start_time).in_milliseconds
+  #
+  #   transaction do
+  #     self.lock!
+  #     self.checks.create!(latency: latency, response_code: response_code)
+  #     self.ready!
+  #   end
+  # end
 end

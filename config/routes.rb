@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :monitored_endpoints
+  resources :monitored_endpoints do
+    resources :daily_details, only: [:show], param: :date, module: :monitored_endpoints
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
