@@ -67,3 +67,5 @@ group :test do
   gem "webmock"
   gem "mocha"
 end
+
+gem "chartkick", "~> 5.2"

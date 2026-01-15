@@ -18,6 +18,12 @@ class MonitoredEndpoint < ApplicationRecord
       .transform_values { |v| v.nil? ? nil : MonitoredEndpoint::Check.statuses.key(v) }
   end
 
+  def average_latency(from:, to:)
+    checks.group_by_day(:created_at, range: from..to, series: true)
+      .average(:latency)
+      .transform_values { |v| v.nil? ? nil : v.round }
+  end
+
   def response_status
     checks.chronologically.last&.status
   end

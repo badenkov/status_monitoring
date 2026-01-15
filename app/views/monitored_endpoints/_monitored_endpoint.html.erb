@@ -5,7 +5,7 @@
 </div>
 
 <div class="uptime-history">
-  <% monitored_endpoint.statuses_by_day(from: 90.days.ago.to_date, to: Date.current).each do |date, status| %>
+  <% monitored_endpoint.statuses_by_day(from: 60.days.ago.to_date, to: Date.current).each do |date, status| %>
     <% if status %>
       <div contents data-controller="popover" data-action="mouseenter->popover#debouncedShow mouseleave->popover#debouncedHide">
         <a href="" class="uptime-history__day uptime-history__day--<%= status %>" data-popover-target="trigger">
@@ -18,3 +18,9 @@
       <div href="" class="uptime-history__day uptime-history__day--<%= status %>"></div>
     <% end %>
   <% end %>
+</div>
+
+<div>
+  <h3>Averange latency, ms</h3>
+  <%= area_chart monitored_endpoint.average_latency(from: 60.days.ago.to_date, to: Date.current) %>
+</div>
