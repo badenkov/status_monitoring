@@ -1,5 +1,7 @@
 # Status Monitoring — Technical Assignment
 
+[![CI](https://github.com/badenkov/status_monitoring/actions/workflows/ci.yml/badge.svg)](https://github.com/badenkov/status_monitoring/actions/workflows/ci.yml)
+
 This project is a **super-simplified analogue of an endpoint response time monitoring service**.
 
 ![Screenshot](docs/images/screenshot.jpg)
