@@ -3,7 +3,7 @@ module ApplicationHelper
     return if object.errors[field].empty?
 
     content_tag :div, class: "error" do
-      object.errors[field].join(', ')
+      object.errors[field].join(", ")
     end
   end
 end

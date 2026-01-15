@@ -24,7 +24,7 @@ class MonitoredEndpointsControllerTest < ActionDispatch::IntegrationTest
           title: @monitored_endpoint.title,
           url: @monitored_endpoint.url,
           interval: @monitored_endpoint.interval,
-          threshold: @monitored_endpoint.threshold,
+          threshold: @monitored_endpoint.threshold
         }
       }
     end
@@ -44,7 +44,7 @@ class MonitoredEndpointsControllerTest < ActionDispatch::IntegrationTest
         title: @monitored_endpoint.title,
         url: @monitored_endpoint.url,
         interval: @monitored_endpoint.interval,
-        threshold: @monitored_endpoint.threshold,
+        threshold: @monitored_endpoint.threshold
       }
     }
 

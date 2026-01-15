@@ -11,7 +11,7 @@ module MonitoredEndpoint::Checkable
       checks.create!(latency: response[:latency], response_code: response[:code], status: response[:status])
       pending!
     end
-  rescue 
+  rescue
     pending!
   end
 
@@ -29,7 +29,7 @@ module MonitoredEndpoint::Checkable
       latency = (end_time - start_time).in_milliseconds
       status = get_status(response.code, latency, threshold)
 
-      { code: response.code, latency:, status:}
+      { code: response.code, latency:, status: }
     rescue => e
       { code: nil, latency: nil, status: :incident }
     end
