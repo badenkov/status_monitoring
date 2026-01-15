@@ -1,57 +1,72 @@
-# Тестовое задание
+# Status Monitoring — Technical Assignment
 
-Требуется реализовать супер-упрощенный аналог сервиса мониторинга времени отклика эндпоинтов.
+This project is a **super-simplified analogue of an endpoint response time monitoring service**.
 
-Примеры для вдохновения:
+## Inspiration
 
-https://status.openstatus.dev/
-https://status.status.io/
-https://status.dropbox.com/
-Можно добавить произвольное количество эндпоинтов для опроса, для каждого указав:
+- [https://status.openstatus.dev/](https://status.openstatus.dev/)
+- [https://status.status.io/](https://status.status.io/)
+- [https://status.dropbox.com/](https://status.dropbox.com/)
 
-Название
-URL для опроса
-Предельное время, за которое эндпоинт должен ответить (в миллисекундах)
-Периодичность опроса (от 1 минуты до 1 часа)
-Далее фоновая задача опрашивает эндпоинты с указанной периодичностью, и на странице отображается текущий статус каждого:
+## Description
 
-operational (вернул статус 2xx/3xx в указанное время)
-degraded (ответил, но не вписался в указанное время)
-incident (не ответил или вернул статус, отличный от 2xx/3xx)
+The system allows you to configure and monitor an arbitrary number of endpoints.
+For each endpoint, you can specify:
 
-# Запуск
+- **Name**
+- **URL** to poll
+- **Maximum acceptable response time** (in milliseconds)
+- **Polling interval** (from 1 minute to 1 hour)
 
-Для настройки рабочего окружения используется инструмент [devenv](https://devenv.sh/getting-started/)
-и [direnv](https://direnv.net/).
+A background job periodically polls the configured endpoints according to their polling intervals.
+The current status of each endpoint is displayed in the UI:
 
-- `devenv` - Помогает в декларативной форме описывать рабочее окружение - устанавливать все необходимые зависимости, сервисы и т.п.
-- `direnv` - Позволяет автоматически загружать рабочее окружение при переходе в директорию с проектом. Без него бы приходилось вызывать команду `devenv shell` в ручную.
+- **operational** — returned a 2xx/3xx status within the specified response time
+- **degraded** — responded successfully, but exceeded the specified response time
+- **incident** — did not respond or returned a non-2xx/3xx status
 
-Для установки всех необходимых зависимостей необходимо клонировать репозиторий
+---
 
-```
+## Running the Project
+
+The development environment is configured using **devenv** and **direnv**.
+
+- **devenv** — allows declarative configuration of the development environment, including required dependencies and services.
+- **direnv** — automatically loads the development environment when entering the project directory. Without it, you would need to run `devenv shell` manually.
+
+### Setup
+
+Clone the repository:
+
+```bash
 git clone git@github.com:badenkov/status_monitoring.git
 cd status_monitoring
 direnv allow
 ```
 
-Затем необходимо установить зависимости
+Install dependencies and set up the database:
 
-```
+```bash
 bundle install
 bin/rails db:setup
 ```
 
-и можно запустить проект.
+(Optional) Seed the database with sample data:
 
+```bash
+bin/rails db:seed
 ```
+
+### Start the Application
+
+```bash
 bin/dev
 ```
 
-и открыть проект в браузере `http://localhost:3000`
+Then open the application in your browser:
 
 ```
-bin/rails db:seed
+http://localhost:3001
 ```
 
 ![Screenshot](docs/images/screenshot.jpg)
