@@ -11,8 +11,9 @@ module MonitoredEndpoint::Checkable
       checks.create!(latency: response[:latency], response_code: response[:code], status: response[:status])
       pending!
     end
-  rescue
+  rescue => e
     pending!
+    raise e
   end
 
   def check_later

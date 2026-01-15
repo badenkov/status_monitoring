@@ -48,6 +48,6 @@ class MonitoredEndpointsController < ApplicationController
     end
 
     def monitored_endpoint_params
-      params.expect(monitored_endpoint: [:title, :url, :threshold, :interval, :status])
+      params.expect(monitored_endpoint: [:title, :url, :threshold, :interval])
     end
 end
