@@ -1,0 +1,8 @@
+.day-details {
+  width: 200px;
+  padding: 0.75em;
+}
+.day-details header {
+  color: oklch(0.141 0.005 285.823);
+  border-bottom: 1px solid oklch(0.92 0.004 286.32);
+}

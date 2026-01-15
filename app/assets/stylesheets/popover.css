@@ -1,0 +1,61 @@
+.popover {
+  --popover-position: block-end;
+  --popover-margin-block: 0.25rem 0;
+
+  background-color: white;
+  border-radius: 0.375rem;
+  border-width: 1px;
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+  border-color: oklch(0.92 0.004 286.32);
+  color: oklch(0.141 0.005 285.823);
+  inline-size: max-content;
+
+  position-area: var(--popover-position);
+  position-try-fallbacks: flip-block flip-inline;
+  margin-block: var(--popover-margin-block);
+
+  transition-duration: 150ms;
+  transition-property: display, opacity, overlay, transform;
+
+  opacity: 0;
+  transform: scale(0.95);
+
+  &:popover-open {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  @starting-style {
+    &:popover-open {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+}
+
+.popover--block-end-center {
+  --popover-position: block-end;
+  --popover-margin-block: 0.25rem 0;
+}
+.popover--block-end-start {
+  --popover-position: block-end span-inline-end;
+  --popover-margin-block: 0.25rem 0;
+}
+.popover--block-end-end {
+  --popover-position: block-end span-inline-start;
+  --popover-margin-block: 0.25rem 0;
+}
+.popover--block-start-center {
+  --popover-position: block-start;
+  --popover-margin-block: 0 0.25rem;
+}
+.popover--block-start-start {
+  --popover-position: block-start span-inline-end;
+  --popover-margin-block: 0 0.25rem;
+}
+.popover--block-start-end {
+  --popover-position: block-start span-inline-start;
+  --popover-margin-block: 0 0.25rem;
+}

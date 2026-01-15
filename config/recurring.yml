@@ -3,6 +3,7 @@
 #    class: LaunchScheduledChecksJob
 #    schedule: every second
 production:
-  launch_scheduled_checks:
-    class: LaunchScheduledChecksJob
+  monitored_endpoints__perform_scheduled_checks:
+    class: MonitoredEndpoint::PerformScheduledChecksJob
     schedule: every minute
+

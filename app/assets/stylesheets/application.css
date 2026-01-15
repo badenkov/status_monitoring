@@ -8,3 +8,24 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+[contents] {
+  display: contents;
+}
+
+* {
+  scrollbar-color: #c1c1c1 transparent;
+  scrollbar-width: thin;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-synthesis-weight: none;
+  overscroll-behavior: none;
+  text-rendering: optimizeLegibility;
+}

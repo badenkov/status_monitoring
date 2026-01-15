@@ -5,7 +5,7 @@ class MonitoredEndpoint::ScheduableTest < ActiveSupport::TestCase
     freeze_time
 
     first_site = monitored_endpoints(:first_site)
-    first_site.ready!
+    first_site.pending!
 
     assert first_site.next_launch_at == Time.current + first_site.interval
 

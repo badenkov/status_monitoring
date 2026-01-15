@@ -1,11 +1,9 @@
 class MonitoredEndpoint < ApplicationRecord
-  include Reportable, Scheduable
-
-  HTTP_TIMEOUT = 10
+  include Scheduable, Checkable
 
   has_many :checks, dependent: :destroy
 
-  enum :status, { draft: 0, ready: 1, in_progress: 2 }, default: :draft
+  enum :status, %w[ pending in_progress ].index_by(&:itself), default: :pending
 
   validates :title, presence: true
   validates :url, presence: true, format: { with: URI.regexp, message: "should be valid url" }
@@ -20,28 +18,7 @@ class MonitoredEndpoint < ApplicationRecord
       .transform_values { |v| v.nil? ? nil : MonitoredEndpoint::Check.statuses.key(v) }
   end
 
-  # after_commit :launch_check_async, if: -> { in_progress? && status_previously_changed? }
-  #
-  # def launch_check_async
-  #   LaunchCheckJob.perform_later(self)
-  # end
-  #
-  # def launch_check!
-  #   start_time = Time.current
-  #   begin
-  #     response = HTTP.timeout(HTTP_TIMEOUT).get(url)
-  #     response_code = response.code
-  #   rescue HTTP::TimeoutError => e
-  #     response_code = 504
-  #   end
-  #   end_time = Time.current
-  #
-  #   latency = (end_time - start_time).in_milliseconds
-  #
-  #   transaction do
-  #     self.lock!
-  #     self.checks.create!(latency: latency, response_code: response_code)
-  #     self.ready!
-  #   end
-  # end
+  def cur_status
+    checks.chronologically.last&.status
+  end
 end

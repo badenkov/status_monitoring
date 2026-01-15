@@ -1,4 +1,14 @@
 <%= turbo_frame_tag "details-#{@date}" do %>
-  <h1>Welcome! <%= @date %></h1>
-
+  <div class="day-details">
+    <header>
+      <%= l @date %>
+    </header>
+    <% if @checks.present? %>
+      <% @checks.each do |check| %>
+        <div><%= l check.created_at, format: :short %>: <%= check.status %></div>
+      <% end %>
+    <% else %>
+      Uptime: 100%
+    <% end %>
+  </div>
 <% end %>

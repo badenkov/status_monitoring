@@ -1,45 +1,23 @@
 <%= form_with(model: monitored_endpoint, class: "w-full") do |form| %>
-  <% if monitored_endpoint.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(monitored_endpoint.errors.count, "error") %> prohibited this monitored_endpoint from being saved:</h2>
 
-      <ul class="list-disc ml-6">
-        <% monitored_endpoint.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= form.label :title %>
+  <%= form.text_field :title, placeholder: "Title" %>
+  <%= field_errors(form.object, :title) %>
 
-  <div class="fieldset">
-    <%= form.label :title, class: "fieldset-legend" %>
-    <%= form.text_field :title, class: ["input", {"input-error": monitored_endpoint.errors[:title].any?}] %>
-  </div>
+  <%= form.label :url %>
+  <%= form.url_field :url, placeholder: "Url" %>
+  <%= field_errors(form.object, :url) %>
 
-  <div class="fieldset">
-    <%= form.label :url, class: "fieldset-legend" %>
-    <%= form.url_field :url, class: ["input", {"input-error": monitored_endpoint.errors[:url].any?}] %>
-  </div>
+  <%= form.label :threshold %>
+  <%= form.number_field :threshold, placeholder: "Threshold" %>
+  <%= field_errors(form.object, :threshold) %>
 
-  <div class="fieldset">
-    <%= form.label :threshold, class: "fieldset-legend" %>
-    <%= form.number_field :threshold, class: ["input", {"input-error": monitored_endpoint.errors[:threshold].any?}] %>
-  </div>
+  <%= form.label :interval %>
+  <%= form.number_field :interval, placeholder: "Interval" %>
+  <%= field_errors(form.object, :interval) %>
 
-  <div class="fieldset">
-    <%= form.label :interval, class: "fieldset-legend" %>
-    <%= form.number_field :interval, class: ["input", {"input-error": monitored_endpoint.errors[:interval].any?}] %>
-  </div>
-
-  <div class="py-2">
+  <div class="flex items-center gap">
     <%= form.submit class: "btn btn-primary" %>
-
-    <% if monitored_endpoint.draft? %>
-      <%= form.submit 'Ready', name: 'monitored_endpoint[status]', value: 'ready', class: "btn" %>
-    <% end %>
-
-    <% unless monitored_endpoint.draft? %>
-      <%= form.submit 'Draft', name: 'monitored_endpoint[status]', value: 'draft', class: "btn" %>
-    <% end %>
+    <%= link_to "Back", monitored_endpoints_path %>
   </div>
 <% end %>

@@ -1,0 +1,31 @@
+.uptime-history {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 4px;
+  margin-block-end: 1rem;
+  width: 100%;
+  height: 50px;
+}
+
+.uptime-history__day {
+  width: 100%;
+  height: 100%;
+  background-color: oklch(0.967 0.003 264.542);
+}
+a.uptime-history__day:hover {
+  opacity: 0.8;
+}
+
+.uptime-history__day--operational {
+  background-color: oklch(72% 0.19 150);
+}
+
+.uptime-history__day--degraded {
+  background-color: oklch(77% 0.16 70);
+}
+
+.uptime-history__day--incident {
+  background-color: oklch(57.7% 0.245 27.325);
+}

@@ -1,15 +1,6 @@
 first_site:
   title: First site
   url: https://first-site.test
-  threshold: 100
-  interval: 60 # seconds
-  next_launch_at: null
-  status: 0 # draft
+  threshold: <%= 100.seconds.in_milliseconds %>
+  interval: <%= 1.minute %>
 
-second_site:
-  title: Second site
-  url: https://second-site.test
-  threshold: 200
-  interval: 60 # seconds
-  next_launch_at: null
-  status: 0 # draft
