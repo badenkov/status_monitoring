@@ -18,7 +18,7 @@ class MonitoredEndpoint < ApplicationRecord
       .transform_values { |v| v.nil? ? nil : MonitoredEndpoint::Check.statuses.key(v) }
   end
 
-  def cur_status
+  def response_status
     checks.chronologically.last&.status
   end
 end
