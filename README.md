@@ -2,6 +2,8 @@
 
 This project is a **super-simplified analogue of an endpoint response time monitoring service**.
 
+![Screenshot](docs/images/screenshot.jpg)
+
 ## Inspiration
 
 - [https://status.openstatus.dev/](https://status.openstatus.dev/)
@@ -51,12 +53,6 @@ bundle install
 bin/rails db:setup
 ```
 
-(Optional) Seed the database with sample data:
-
-```bash
-bin/rails db:seed
-```
-
 ### Start the Application
 
 ```bash
@@ -68,5 +64,3 @@ Then open the application in your browser:
 ```
 http://localhost:3001
 ```
-
-![Screenshot](docs/images/screenshot.jpg)
