@@ -24,6 +24,11 @@ class MonitoredEndpoint < ApplicationRecord
       .transform_values { |v| v.nil? ? nil : v.round }
   end
 
+  def failed_response_counts(from:, to:)
+    checks.group_by_day(:created_at, reverse: true, range: from..to)
+      .count("CASE WHEN monitored_endpoint_checks.status IN (1, 2) THEN 1 END")
+  end
+
   def response_status
     checks.chronologically.last&.status
   end
