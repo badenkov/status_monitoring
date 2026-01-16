@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_15_115328) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_16_124323) do
   create_table "monitored_endpoint_checks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "latency"
@@ -24,6 +24,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_15_115328) do
   create_table "monitored_endpoints", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "interval"
+    t.integer "lock_version", default: 0, null: false
     t.datetime "next_launch_at"
     t.string "status", default: "pending"
     t.integer "threshold"

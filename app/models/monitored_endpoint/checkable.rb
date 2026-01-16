@@ -11,6 +11,9 @@ module MonitoredEndpoint::Checkable
       checks.create!(latency: response[:latency], response_code: response[:code], status: response[:status])
       pending!
     end
+  rescue ActiveRecord::StaleObjectError
+    reload
+    retry
   rescue => e
     pending!
     raise e
